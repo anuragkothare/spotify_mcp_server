@@ -1,4 +1,4 @@
-<img width="512" height="512" alt="image" src="https://github.com/user-attachments/assets/3b9106a6-6c97-4c37-8d65-9f10acc34912" />#  Spotify MCP Server
+<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/3b9106a6-6c97-4c37-8d65-9f10acc34912" />#  Spotify MCP Server
 
 A **Model Context Protocol (MCP) server** that provides AI assistants with access to Spotify's music catalog.
 
