@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  spotify-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: spotify-mcp-server:latest
+    container_name: spotify-mcp
+    restart: unless-stopped
+
+    environment:
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
+      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
+      - SPOTIFY_REDIRECT_URI=${SPOTIFY_REDIRECT_URI:-http://localhost:8080/callback}
+      - SERVER_PORT=8080
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - GO_ENV=production
+
+    env_file:
+      - .env
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - ./configs:/app/configs:ro
+      - app-logs:/app/logs
+      - app-tmp:/app/tmp
+
+    networks:
+      - spotify-net
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+
+networks:
+  spotify-net:
+    driver: bridge
+    name: spotify-network
+
+volumes:
+  app-logs:
+    driver: local
+  app-tmp:
+    driver: local
