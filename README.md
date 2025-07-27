@@ -30,7 +30,7 @@ This MCP server enables AI assistants to search music on Spotify through three t
 
 ```bash
 # Clone and setup
-git clone <repository-url>
+git clone https://github.com/anuragkothare/spotify_mcp_server.git
 cd spotify-mcp-server
 
 # Configure environment
